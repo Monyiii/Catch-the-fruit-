@@ -14,6 +14,8 @@ fruta_s = 300
 fps = 60
 pts = 0
 rch = 0
+lvl = 1
+lvl1 = 1
 
 def dibujar():
     ventana.fill((200, 200, 200))
@@ -24,6 +26,8 @@ def dibujar():
     ventana.blit(puntos, (10, 10))
     racha = font.render("Racha: " + str(rch), True, (255, 147, 0))
     ventana.blit(racha, (680, 10))
+    nivel = font.render("Nivel: " + str(lvl), True, (93, 0, 255))
+    ventana.blit(nivel, (350, 10))
 
 while True:
     dt = clock.tick(fps) / 1000
@@ -42,11 +46,20 @@ while True:
         fruta_y = -25
         fruta_x = random.randint(25, 775)
         rch = 0
+        lvl1 = 1
+        fruta_s = 300
+        taza_s = 420
     if fruta_y >= 500 and fruta_y <= 525 and fruta_x >= taza_x and fruta_x <= taza_x + 100:
         fruta_y = -25
         fruta_x = random.randint(25, 775)
         pts += 1
         rch += 1
+
+    lvl = rch // 5 + 1
+    if lvl != lvl1:
+        fruta_s += 60
+        taza_s += 80
+        lvl1 += 1
     
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
